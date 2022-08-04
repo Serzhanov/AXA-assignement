@@ -1,14 +1,23 @@
 <div class="container">
     <div class="row">
       <div class="col-12">
-          <table *ngFor="let hero of this.heroes" class="table table-striped table-dark">
+         <input type="text" placeholder="Id" [(ngModel)]="id" >
+         <input type="text" placeholder="Name" [(ngModel)]="name" >
+         <input type="text" placeholder="Age" [(ngModel)]="age" >
+         <input type="text" placeholder="Height" [(ngModel)]="height">
+         <input type="text" placeholder="Weight" [(ngModel)]="weight">
+         <input type="text" placeholder="Hair Color" [(ngModel)]="hair_color">
+         <input type="text" placeholder="Friend" [(ngModel)]="friend">
+        <input type="text" placeholder="Profession" [(ngModel)]="profession">
+
+          <table *ngFor="let hero of this.heroes | filter:[id,name,age,height,weight,hair_color,friend,profession]" class="table table-striped table-dark">
             <thead>
-              <tr>
+              <tr >
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Age</th>
-                <th scope="col">Weight</th>
                 <th scope="col">Height</th>
+                <th scope="col">Weight</th>
                 <th scope="col">Hair Color</th>
                 <th scoep="col">Thumbnail</th>
                 <th scope="col">Friends</th>
@@ -20,8 +29,8 @@
                 <th scope="row">{{hero.id}}</th>
                 <td>{{hero.name}}</td>
                 <td>{{hero.age}}</td>
+                <td>{{hero.height}}</td>
                 <td>{{hero.weight}}</td>
-                <td>{{hero.age}}</td>
                 <td>{{hero.hair_color}}</td>
                 <td class="w-25">
                     <img [src]="hero.thumbnail" class="img-fluid img-thumbnail" alt="Sheep">
@@ -33,7 +42,7 @@
           </table>   
       </div>
     </div>
-  </div>
+</div>
 
 <style>
     .container {
