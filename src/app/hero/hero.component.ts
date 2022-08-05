@@ -66,4 +66,10 @@ export class HeroComponent implements OnInit {
     this.numPages=Math.round(this.heroes!.length/this.pagenationNumber)
    }
   }
+  setName(nameOfFriend:string){
+    this.name=nameOfFriend
+  }
+  setProfession(nameOfProfession:string){
+    this.profession=nameOfProfession
+  }
 }

@@ -35,8 +35,8 @@
                 <td class="w-25">
                     <img [src]="hero.thumbnail" class="img-fluid img-thumbnail" alt="Sheep">
                 </td>
-                <td>{{hero.friends}}</td>
-                <td>{{hero.professions}}</td>
+                <td><p *ngFor="let friend of hero.friends"><a (click)="setName(friend)">{{friend}}</a></p></td>
+                <td><p *ngFor="let profession of hero.professions"><a (click)="setProfession(profession)">{{profession}}</a></p></td>
               </tr>
             </tbody>
           </table>   
