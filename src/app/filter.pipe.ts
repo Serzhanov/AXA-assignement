@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { filter } from 'rxjs';
 import {Hero} from './interfaces/heroInterface'
 @Pipe({
   name: 'filter'
@@ -8,7 +7,6 @@ export class FilterPipe implements PipeTransform {
 
   transform(heroes:Hero[]|undefined,arr:Array<string|undefined>) {
     if(this.allAreUndefined(arr)){
-      console.log("are all undefined")
       return heroes
     }
     let tempObj:any={}
@@ -31,7 +29,7 @@ export class FilterPipe implements PipeTransform {
       let elementAsAny = element as any
       Object.keys(tempObj).every((e) => {
         if(typeof tempObj[e] === 'number'){
-            if(elementAsAny[e]===tempObj[e]){
+            if(elementAsAny[e]==tempObj[e]){
               permissionArr[index]=true
             }
           }
@@ -42,7 +40,7 @@ export class FilterPipe implements PipeTransform {
         }
       })
     })
-
+    
     heroes=heroes?.filter((element,index)=>{
       if(permissionArr[index]==true){
         return element

@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HeroComponent } from './hero/hero.component';
 import { FormsModule } from '@angular/forms';
 import { FilterPipe } from './filter.pipe';
+import { PagenationPipe } from './pagenation.pipe';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { FilterPipe } from './filter.pipe';
     AppComponent,
     HeroComponent,
     FilterPipe,
+    PagenationPipe,
     
     
   ],
