@@ -30,7 +30,6 @@ export class HeroComponent implements OnInit {
   getHeroes(): void {
     this.commonService.fetchData().subscribe((response)=>{
          this.heroes=response.Brastlewark
-         console.log(this.heroes)
     })
   }
  

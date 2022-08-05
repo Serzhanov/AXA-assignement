@@ -1,85 +1,78 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { filter } from 'rxjs';
 import {Hero} from './interfaces/heroInterface'
 @Pipe({
   name: 'filter'
 })
 export class FilterPipe implements PipeTransform {
 
-  // transform(heroes:Hero[]|undefined,switcherKey:number|undefined,key:string|undefined,arr:Array<string|undefined>) {
-
-  //   switch(Number(switcherKey)){
-  //     case 1:
-  //       heroes=heroes?.filter(element=>element.id==Number(key))
-  //       break;
-  //     case 2:
-  //       heroes=heroes?.filter(element=>element.name===key||element.name.includes(arr[1]!))
-  //       break;
-  //     case 3:
-  //       heroes=heroes?.filter(element=>element.age==Number(arr[0]))
-  //       break;
-  //     case 4:
-  //       heroes=heroes?.filter(element=>element.height==Number(key))
-  //       break;
-  //     case 5:
-  //       heroes=heroes?.filter(element=>element.weight==Number(key))
-  //       break;
-  //     case 6:
-  //       heroes=heroes?.filter(element=>element.hair_color===key||element.name.includes(key!))
-  //       break;
-  //     case 7:
-  //       heroes=heroes?.filter(element=>element.friends.includes(key!))
-  //       break;
-  //     case 8:
-  //       heroes=heroes?.filter(element=>element.professions.includes(key!))
-  //       break;
-  //     default:
-  //       console.log("default case")
-  //   }
-  //   return heroes
-  // }
   transform(heroes:Hero[]|undefined,arr:Array<string|undefined>) {
-    console.log(arr)
     if(this.allAreUndefined(arr)){
+      console.log("are all undefined")
       return heroes
     }
     let tempObj:any={}
-    heroes=heroes?.filter(element=>{
+    let permissionArr:boolean[]=new Array(heroes?.length).fill(false)
 
-      if(arr[0])element.id===Number(arr[0])?tempObj['id']=true:this.justForOneLineCase()
-      if(arr[1])element.name===arr[1]||element.name.includes(arr[1]!)?tempObj['name']=true:this.justForOneLineCase()
-      if(arr[2])element.age===Number(arr[2])?tempObj['age']=true:this.justForOneLineCase()
-      if(arr[3])element.height===Number(arr[3])?tempObj['height']=true:this.justForOneLineCase()
-      if(arr[4])element.weight===Number(arr[4])?tempObj['weight']=true:this.justForOneLineCase()
-      if(arr[5])element.hair_color===arr[5]||element.hair_color.includes(arr[5]!)?tempObj['hair_color']=true:this.justForOneLineCase()
-      if(arr[6])element.friends.includes(arr[6]!)?tempObj['friends']=true:this.justForOneLineCase()
-      if(arr[7])element.professions.includes(arr[7]!)?tempObj['profession']=true:this.justForOneLineCase()
+    //Trying to fill tempElment to reach out the multiple filtering at the same time by setting 'true' value on relative index in permissionArr
+    //then by looping permissionArr we can get filtered values with value 'true' 
 
-      //I have to check if all keys of tempObj are equal to keys in heroes to make filtering by multiple criteria
-      let elementInAny=element as any
-      let keys=Object.keys(tempObj)
-      console.log(keys)
-      for(let i=0;i<keys.length;i++){
-        if(elementInAny[keys[i].toString()]===tempObj[keys.toString()]) return true
-      }
-      return true
-      
+    heroes?.filter((element,index)=>{
+       
+      if(arr[0])element.id===Number(arr[0])?tempObj['id']=Number(arr[0]):this.justForOneLineCase()
+      if(arr[1])element.name===arr[1]||element.name.includes(arr[1]!)?tempObj['name']=arr[1]:this.justForOneLineCase()
+      if(arr[2])element.age===Number(arr[2])?tempObj['age']=Number(arr[2]):this.justForOneLineCase()
+      if(arr[3])element.height===Number(arr[3])?tempObj['height']=Number(arr[3]):this.justForOneLineCase()
+      if(arr[4])element.weight===Number(arr[4])?tempObj['weight']=Number(arr[4]):this.justForOneLineCase()
+      if(arr[5])element.hair_color===arr[5]||element.hair_color.includes(arr[5]!)?tempObj['hair_color']=arr[5]:this.justForOneLineCase()
+      if(arr[6])tempObj=this.checkSubStrings(element.friends,arr,tempObj,'friends',6)
+      if(arr[7])tempObj=this.checkSubStrings(element.professions,arr,tempObj,'professions',7)
+
+      let elementAsAny = element as any
+      Object.keys(tempObj).every((e) => {
+        if(typeof tempObj[e] === 'number'){
+            if(elementAsAny[e]===tempObj[e]){
+              permissionArr[index]=true
+            }
+          }
+        else{
+          if(elementAsAny[e].toString().includes(tempObj[e].toString())){
+            permissionArr[index]=true
+          }
+        }
+      })
     })
-    console.log(tempObj)
+
+    heroes=heroes?.filter((element,index)=>{
+      if(permissionArr[index]==true){
+        return element
+      }
+      return false
+    })
     return heroes
   }
 
+
   allAreUndefined(array:Array<string|undefined>) {
     for(let i=0;i<array.length;i++){
-      if(array[i]!=undefined){
+      if(array[i]!=undefined&&array[i]!=''){
         return false
       }
     }
-  
     return true;
   }
 
   justForOneLineCase(){
     return
+  }
+  
+  checkSubStrings(chaine:String[],arr:any,tempObj:any,key:string,numSwithcer:number){
+    for(let i=0;i<chaine.length;i++){
+      if(chaine[i]!=undefined && chaine[i].includes(arr[numSwithcer])){
+        tempObj[key]=arr[numSwithcer]
+      }
+    }
+    return tempObj
   }
   
 }
