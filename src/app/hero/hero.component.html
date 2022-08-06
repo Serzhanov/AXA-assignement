@@ -42,8 +42,8 @@
           </table>   
       </div>
       <p>Current Page:{{this.currentPage}} / {{this.numPages}}</p>
-      <label for="paginateBy">Paginate by {{pagenationNumber}}</label>
-      <input type="number" [(ngModel)]="pagenationNumber" (ngModelChange)="paginate()" id="paginateBy">
+      <label for="paginateBy">Paginate by {{paginationNumber}}</label>
+      <input type="number" [(ngModel)]="paginationNumber" (ngModelChange)="paginate()" id="paginateBy">
       <label for="goto">Go to:</label>
       <input type="number" [(ngModel)]="currentPageIndicator" id="goto" (ngModelChange)="goto()">
       <button (click)="nextPage()">Next</button>
