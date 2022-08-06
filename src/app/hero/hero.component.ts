@@ -30,7 +30,7 @@ export class HeroComponent implements OnInit {
   public previousStateOfNumPages:number=this.numPages
 
   protected keyToSort:number=0
-  protected ascending=false
+  protected ascending=true
   constructor(private commonService:BrastlewarkService) { }
 
   ngOnInit() {
@@ -114,7 +114,7 @@ export class HeroComponent implements OnInit {
     //case 1-> id ,case 2 -> age ,case 3 -> height, case 4 -> weight
     this.keyToSort=keyToSort
     this.ascending=!this.ascending
-    
   }
+
 
 }
