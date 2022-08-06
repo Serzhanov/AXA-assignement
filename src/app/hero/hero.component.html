@@ -8,16 +8,17 @@
          <input type="text" placeholder="Weight" [(ngModel)]="weight">
          <input type="text" placeholder="Hair Color" [(ngModel)]="hair_color">
          <input type="text" placeholder="Friend" [(ngModel)]="friend">
-        <input type="text" placeholder="Profession" [(ngModel)]="profession">
+         <input type="text" placeholder="Profession" [(ngModel)]="profession">
 
-          <table *ngFor="let hero of this.heroes | filter:[id,name,age,height,weight,hair_color,friend,profession] | pagenation:[startPage,endPage]" class="table table-striped table-dark">
+          <table *ngFor="let hero of this.heroes | filter:[id,name,age,height,weight,hair_color,friend,profession] | pagenation:[startPage,endPage] | sort:[keyToSort,ascending] "
+          class="table table-striped table-dark">
             <thead>
               <tr >
-                <th scope="col">Id</th>
+                <th scope="col"><a (click)="setKeyAndOrderToSort(1)">Id</a></th>
                 <th scope="col">Name</th>
-                <th scope="col">Age</th>
-                <th scope="col">Height</th>
-                <th scope="col">Weight</th>
+                <th scope="col"><a (click)="setKeyAndOrderToSort(2)">Age</a></th>
+                <th scope="col"><a (click)="setKeyAndOrderToSort(3)">Height</a></th>
+                <th scope="col"><a (click)="setKeyAndOrderToSort(4)">Weight</a></th>
                 <th scope="col">Hair Color</th>
                 <th scoep="col">Thumbnail</th>
                 <th scope="col">Friends</th>

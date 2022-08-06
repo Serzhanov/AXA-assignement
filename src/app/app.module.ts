@@ -6,6 +6,7 @@ import { HeroComponent } from './hero/hero.component';
 import { FormsModule } from '@angular/forms';
 import { FilterPipe } from './filter.pipe';
 import { PagenationPipe } from './pagenation.pipe';
+import { SortPipe } from './sort.pipe';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { PagenationPipe } from './pagenation.pipe';
     HeroComponent,
     FilterPipe,
     PagenationPipe,
+    SortPipe,
     
     
   ],
