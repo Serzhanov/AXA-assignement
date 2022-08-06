@@ -10,7 +10,7 @@ export class HeroComponent implements OnInit {
 
   protected heroes:Hero[]|undefined
   protected display:boolean=false
- 
+  
   protected id:string|undefined
   protected name:string|undefined
   protected age:string|undefined
@@ -21,6 +21,7 @@ export class HeroComponent implements OnInit {
   protected hair_color:string|undefined
 
   protected currentPage:number=1
+  protected currentPageIndicator:number=1
   protected pagenationNumber:number=5
   protected startPage:number=0
   protected endPage:number=this.pagenationNumber
@@ -43,33 +44,49 @@ export class HeroComponent implements OnInit {
   }
 
   nextPage(){
-    this.startPage=this.startPage+this.pagenationNumber
-    this.endPage=this.endPage+this.pagenationNumber
-    this.currentPage+=1
+    if(this.currentPage<=this.numPages){
+      this.startPage=this.startPage+this.pagenationNumber
+      this.endPage=this.endPage+this.pagenationNumber
+      this.currentPage+=1
+    }
   }
 
   previousPage(){
-    this.startPage=this.startPage-this.pagenationNumber
-    this.endPage=this.endPage-this.pagenationNumber
-    this.currentPage-=1
+    if(this.currentPage>1){
+      this.startPage=this.startPage-this.pagenationNumber
+      this.endPage=this.endPage-this.pagenationNumber
+      this.currentPage-=1
+    }
   }
   
   paginate(){
-   this.startPage=0
-   if(this.pagenationNumber<=0||this.pagenationNumber==undefined){
-    this.pagenationNumber=0
-    this.numPages=this.heroes!.length
-    this.endPage=this.numPages
-   }
-   else{
-    this.endPage=this.pagenationNumber
-    this.numPages=Math.round(this.heroes!.length/this.pagenationNumber)
-   }
+    this.startPage=0
+    if(this.pagenationNumber<=0||this.pagenationNumber==undefined){
+      this.pagenationNumber=0
+      this.numPages=this.heroes!.length
+      this.endPage=this.numPages
+    }
+    else{
+      this.endPage=this.pagenationNumber
+      this.numPages=Math.round(this.heroes!.length/this.pagenationNumber)
+    }
   }
+
   setName(nameOfFriend:string){
     this.name=nameOfFriend
   }
   setProfession(nameOfProfession:string){
     this.profession=nameOfProfession
+  }
+
+  goto(){
+    while((this.currentPageIndicator!=this.currentPage) && (this.currentPageIndicator>=1 && this.currentPageIndicator<=this.numPages) && (this.currentPage!=null && this.currentPage!=undefined && this.currentPage>=1)){
+      if(this.currentPage<this.currentPageIndicator){
+        this.nextPage()
+      }
+      else{
+        this.previousPage();
+      }
+    }
   }
 }
