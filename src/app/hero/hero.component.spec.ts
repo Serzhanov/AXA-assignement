@@ -65,7 +65,7 @@ describe('HeroComponent', () => {
     it('should paginate the data by 10',()=>{
       component.startPage=0
       component.endPage=5
-      component.pagenationNumber=10
+      component.paginationNumber=10
       component.numPages=mockingDataForTeting.length
       component.heroes=mockingDataForTeting
       component.paginate()
@@ -75,7 +75,7 @@ describe('HeroComponent', () => {
     it('should not paginate the data by -1',()=>{
       component.startPage=0
       component.endPage=5
-      component.pagenationNumber=-1
+      component.paginationNumber=-1
       component.numPages=mockingDataForTeting.length
       component.heroes=mockingDataForTeting
       component.paginate()
@@ -86,7 +86,7 @@ describe('HeroComponent', () => {
     it('should not paginate the data by num of pages , should render the data in one page,so endPages would be length of data,but numPages =1 ',()=>{
       component.startPage=0
       component.endPage=5
-      component.pagenationNumber=mockingDataForTeting.length
+      component.paginationNumber=mockingDataForTeting.length
       component.numPages=mockingDataForTeting.length
       component.heroes=mockingDataForTeting
       component.paginate()

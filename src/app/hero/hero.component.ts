@@ -23,9 +23,9 @@ export class HeroComponent implements OnInit {
 
   public currentPage:number=1
   public currentPageIndicator:number=1
-  public pagenationNumber:number=5
+  public paginationNumber:number=5
   public startPage:number=0
-  public endPage:number=this.pagenationNumber
+  public endPage:number=this.paginationNumber
   public numPages:number=0
   public previousStateOfNumPages:number=this.numPages
 
@@ -54,7 +54,7 @@ export class HeroComponent implements OnInit {
     //Find better solution to make responsive the current page after filtering
     let filterPipe=new FilterPipe()
     let output=filterPipe.transform(this.heroes,[this.id,this.name,this.age,this.height,this.weight,this.hair_color,this.friend,this.profession])
-    this.numPages=Math.round(output!.length/this.pagenationNumber)
+    this.numPages=Math.round(output!.length/this.paginationNumber)
     this.numPages=this.numPages===0?1:this.numPages
 
     
@@ -62,38 +62,40 @@ export class HeroComponent implements OnInit {
 
   nextPage(){
     if(this.currentPage<=this.numPages){
-      this.startPage=this.startPage+this.pagenationNumber
-      this.endPage=this.endPage+this.pagenationNumber
+      this.startPage=this.startPage+this.paginationNumber
+      this.endPage=this.endPage+this.paginationNumber
       this.currentPage+=1
     }
   }
 
   previousPage(){
     if(this.currentPage>1){
-      this.startPage=this.startPage-this.pagenationNumber
-      this.endPage=this.endPage-this.pagenationNumber
+      this.startPage=this.startPage-this.paginationNumber
+      this.endPage=this.endPage-this.paginationNumber
       this.currentPage-=1
     }
   }
   
   paginate(){
     this.startPage=0
-    if(this.pagenationNumber<=0||this.pagenationNumber==undefined){
-      this.pagenationNumber=0
+    if(this.paginationNumber<=0||this.paginationNumber==undefined){
+      this.paginationNumber=0
       this.numPages=this.heroes!.length
       this.endPage=this.numPages
     }
     else{
-      this.endPage=this.pagenationNumber
-      this.numPages=Math.round(this.heroes!.length/this.pagenationNumber)
+      this.endPage=this.paginationNumber
+      this.numPages=Math.round(this.heroes!.length/this.paginationNumber)
     }
   }
 
   setName(nameOfFriend:string){
     this.name=nameOfFriend
+    this.initPagenation()
   }
   setProfession(nameOfProfession:string){
     this.profession=nameOfProfession
+    this.initPagenation()
   }
 
   goto(){
@@ -112,6 +114,7 @@ export class HeroComponent implements OnInit {
     //case 1-> id ,case 2 -> age ,case 3 -> height, case 4 -> weight
     this.keyToSort=keyToSort
     this.ascending=!this.ascending
+    
   }
 
 }
