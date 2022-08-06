@@ -15,10 +15,12 @@ describe('SortPipe', () => {
     let issue=false
     let index=0
     while(index<output!.length-1&&!issue){
-      if(output![index].id>output![index].id) issue=true
+      if(output![index].id>output![index+1].id) issue=true
+      index+=1
     }
     expect(issue).toBeFalse()
   })
+
   it('should filter by id descending',()=>{
     let keyToSort=1
     let ascending=false
@@ -26,7 +28,8 @@ describe('SortPipe', () => {
     let issue=false
     let index=0
     while(index<output!.length-1&&!issue){
-      if(output![index].id<=output![index].id) issue=true
+      if(output![index].id<=output![index+1].id) issue=true
+      index+=1
     }
     expect(issue).toBeFalse()
   })
