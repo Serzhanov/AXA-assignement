@@ -1,12 +1,19 @@
 import { TestBed } from '@angular/core/testing';
+import { HeroComponent } from './hero/hero.component';
 import { AppComponent } from './app.component';
+import { HttpClient } from '@angular/common/http';
+import { SortPipe } from './Pipes/sort.pipe';
+import { FilterPipe } from './Pipes/filter.pipe';
+import { PagenationPipe } from './Pipes/pagenation.pipe';
+
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,HeroComponent,SortPipe,FilterPipe,PagenationPipe
       ],
+      providers:[{provide:HttpClient,useValue:{}}]
     }).compileComponents();
   });
 
@@ -16,16 +23,11 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'my-app'`, () => {
+  it(`should have as title 'Brastlewark'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('my-app');
+    expect(app.title).toEqual('Brastlewark');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('my-app app is running!');
-  });
+ 
 });

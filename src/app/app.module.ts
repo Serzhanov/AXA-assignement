@@ -4,9 +4,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeroComponent } from './hero/hero.component';
 import { FormsModule } from '@angular/forms';
-import { FilterPipe } from './filter.pipe';
-import { PagenationPipe } from './pagenation.pipe';
-import { SortPipe } from './sort.pipe';
+import { FilterPipe } from './Pipes/filter.pipe';
+import { PagenationPipe } from './Pipes/pagenation.pipe';
+import { SortPipe } from './Pipes/sort.pipe';
 
 
 @NgModule({
@@ -16,8 +16,6 @@ import { SortPipe } from './sort.pipe';
     FilterPipe,
     PagenationPipe,
     SortPipe,
-    
-    
   ],
   imports: [
     BrowserModule,

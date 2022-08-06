@@ -8,7 +8,7 @@ import { BrastlewarkService } from '../services/brastlewark.service';
 })
 export class HeroComponent implements OnInit {
 
-  protected heroes:Hero[]|undefined
+  public heroes:Hero[]|undefined
   protected display:boolean=false
   
   protected id:string|undefined
@@ -20,15 +20,15 @@ export class HeroComponent implements OnInit {
   protected profession:string|undefined
   protected hair_color:string|undefined
 
-  protected currentPage:number=1
-  protected currentPageIndicator:number=1
-  protected pagenationNumber:number=5
-  protected startPage:number=0
-  protected endPage:number=this.pagenationNumber
-  protected numPages:number=0
+  public currentPage:number=1
+  public currentPageIndicator:number=1
+  public pagenationNumber:number=5
+  public startPage:number=0
+  public endPage:number=this.pagenationNumber
+  public numPages:number=0
 
   protected keyToSort:number=0
-  protected ascending=true
+  protected ascending=false
   constructor(public commonService:BrastlewarkService) { }
 
   ngOnInit() {
@@ -36,9 +36,14 @@ export class HeroComponent implements OnInit {
   }
 
   getHeroes() {
-    this.commonService.fetchData().subscribe((response)=>{
-         this.heroes=response.Brastlewark
-         this.initPagenation()
+    this.commonService.fetchData().subscribe({
+      next : (response)=>{
+        this.heroes=response.Brastlewark
+        this.initPagenation()
+      },
+      error:(e)=>{
+        alert("an error occurred while loading data,please try later "+ e.toString())
+      }
     })
   }
 
@@ -83,7 +88,7 @@ export class HeroComponent implements OnInit {
   }
 
   goto(){
-    while((this.currentPageIndicator!=this.currentPage) && (this.currentPageIndicator>=1 && this.currentPageIndicator<=this.numPages) && (this.currentPage!=null && this.currentPage!=undefined && this.currentPage>=1)){
+    while((this.currentPageIndicator!=this.currentPage) && (this.currentPageIndicator>=1 && this.currentPageIndicator<=this.numPages) && (this.currentPage!=null && this.currentPage!=undefined && this.currentPage>0)){
       if(this.currentPage<this.currentPageIndicator){
         this.nextPage()
       }
@@ -91,6 +96,7 @@ export class HeroComponent implements OnInit {
         this.previousPage();
       }
     }
+    return this.currentPage
   }
 
   setKeyAndOrderToSort(keyToSort:number){
