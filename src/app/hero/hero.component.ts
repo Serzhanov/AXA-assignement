@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../interfaces/heroInterface';
 import { BrastlewarkService } from '../services/brastlewark.service';
+import { FilterPipe } from '../Pipes/filter.pipe';
 @Component({
   selector: 'app-hero',
   templateUrl: './hero.component.html',
@@ -26,10 +27,11 @@ export class HeroComponent implements OnInit {
   public startPage:number=0
   public endPage:number=this.pagenationNumber
   public numPages:number=0
+  public previousStateOfNumPages:number=this.numPages
 
   protected keyToSort:number=0
   protected ascending=false
-  constructor(public commonService:BrastlewarkService) { }
+  constructor(private commonService:BrastlewarkService) { }
 
   ngOnInit() {
     this.getHeroes()
@@ -48,7 +50,14 @@ export class HeroComponent implements OnInit {
   }
 
   initPagenation(){
-    this.numPages=Math.round(this.heroes!.length/this.pagenationNumber)
+    //TO DO
+    //Find better solution to make responsive the current page after filtering
+    let filterPipe=new FilterPipe()
+    let output=filterPipe.transform(this.heroes,[this.id,this.name,this.age,this.height,this.weight,this.hair_color,this.friend,this.profession])
+    this.numPages=Math.round(output!.length/this.pagenationNumber)
+    this.numPages=this.numPages===0?1:this.numPages
+
+    
   }
 
   nextPage(){

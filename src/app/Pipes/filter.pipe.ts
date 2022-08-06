@@ -1,10 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {Hero} from '../interfaces/heroInterface'
+
 @Pipe({
   name: 'filter'
 })
 export class FilterPipe implements PipeTransform {
-
+  constructor(){}
   transform(heroes:Hero[]|undefined,arr:Array<string|undefined>) {
     if(this.allAreUndefined(arr)){
       return heroes

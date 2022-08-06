@@ -25,9 +25,6 @@ describe('HeroComponent', () => {
     fixture.detectChanges();
   });
 
-
-
-  let numberOfPages=mockingDataForTeting.length
   describe("Pages Testing",()=>{
     it('should call fetchData and output should be defined', () => {
       service.fetchData().subscribe(response=>{

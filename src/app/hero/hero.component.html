@@ -1,14 +1,14 @@
 <div class="container">
     <div class="row">
       <div class="col-12">
-         <input type="text" placeholder="Id" [(ngModel)]="id" >
-         <input type="text" placeholder="Name"  [(ngModel)]="name" >
-         <input type="text" placeholder="Age"   [(ngModel)]="age" >
-         <input type="text" placeholder="Height"  [(ngModel)]="height">
-         <input type="text" placeholder="Weight"  [(ngModel)]="weight">
-         <input type="text" placeholder="Hair Color"  [(ngModel)]="hair_color">
-         <input type="text" placeholder="Friend"  [(ngModel)]="friend">
-         <input type="text" placeholder="Profession" [(ngModel)]="profession">
+         <input type="text" placeholder="Id" [(ngModel)]="id" (ngModelChange)="initPagenation()">
+         <input type="text" placeholder="Name"  [(ngModel)]="name" (ngModelChange)="initPagenation()">
+         <input type="text" placeholder="Age"   [(ngModel)]="age" (ngModelChange)="initPagenation()">
+         <input type="text" placeholder="Height"  [(ngModel)]="height" (ngModelChange)="initPagenation()">
+         <input type="text" placeholder="Weight"  [(ngModel)]="weight" (ngModelChange)="initPagenation()">
+         <input type="text" placeholder="Hair Color"  [(ngModel)]="hair_color" (ngModelChange)="initPagenation()">
+         <input type="text" placeholder="Friend"  [(ngModel)]="friend" (ngModelChange)="initPagenation()">
+         <input type="text" placeholder="Profession" [(ngModel)]="profession" (ngModelChange)="initPagenation()">
          <table *ngFor="let hero of this.heroes | filter:[id,name,age,height,weight,hair_color,friend,profession] | pagenation:[startPage,endPage] | sort:[keyToSort,ascending] "
           class="table table-striped table-dark">
             <thead>
