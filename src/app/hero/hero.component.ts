@@ -31,6 +31,10 @@ export class HeroComponent implements OnInit {
 
   protected keyToSort:number=0
   protected ascending=true
+
+  protected isSortedAscending:string[]=['','','','']
+  protected disablingButton:boolean[]=[true,false]
+
   constructor(private commonService:BrastlewarkService) { }
 
   ngOnInit() {
@@ -61,18 +65,26 @@ export class HeroComponent implements OnInit {
   }
 
   nextPage(){
-    if(this.currentPage<=this.numPages){
+    this.disablingButton[0]=false
+    if(this.currentPage<this.numPages){
       this.startPage=this.startPage+this.paginationNumber
       this.endPage=this.endPage+this.paginationNumber
       this.currentPage+=1
     }
+    else{
+      this.disablingButton[1]=true
+    }
   }
 
   previousPage(){
+    this.disablingButton[1]=false
     if(this.currentPage>1){
       this.startPage=this.startPage-this.paginationNumber
       this.endPage=this.endPage-this.paginationNumber
       this.currentPage-=1
+    }
+    else{
+      this.disablingButton[0]=true
     }
   }
   
@@ -113,8 +125,24 @@ export class HeroComponent implements OnInit {
   setKeyAndOrderToSort(keyToSort:number){
     //case 1-> id ,case 2 -> age ,case 3 -> height, case 4 -> weight
     this.keyToSort=keyToSort
+    this.changeSort(keyToSort)
     this.ascending=!this.ascending
   }
 
-
+  changeSort(key:number){
+    switch(key){
+      case 1:
+        this.isSortedAscending[0]=this.isSortedAscending[0]===''?'↓':'' 
+        break
+      case 2:
+        this.isSortedAscending[1]=this.isSortedAscending[1]===''?'↓':''
+        break
+      case 3:
+        this.isSortedAscending[2]=this.isSortedAscending[2]===''?'↓':''
+        break
+      case 4:
+        this.isSortedAscending[3]=this.isSortedAscending[3]===''?'↓':''
+        break
+    }
+  }
 }
