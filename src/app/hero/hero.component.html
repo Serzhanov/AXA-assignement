@@ -9,7 +9,7 @@
          <input type="text" placeholder="Hair Color"  [(ngModel)]="hair_color" (ngModelChange)="initPagenation()">
          <input type="text" placeholder="Friend"  [(ngModel)]="friend" (ngModelChange)="initPagenation()">
          <input type="text" style="width:100%" placeholder="Profession" [(ngModel)]="profession" (ngModelChange)="initPagenation()">
-         <table *ngFor="let hero of this.heroes | filter:[id,name,age,height,weight,hair_color,friend,profession] | pagenation:[startPage,endPage] | sort:[keyToSort,ascending] "
+         <table 
           class="table table-striped table-dark">
             <thead>
               <tr >
@@ -25,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr  *ngFor="let hero of this.heroes | filter:[id,name,age,height,weight,hair_color,friend,profession] | pagenation:[startPage,endPage] | sort:[keyToSort,ascending] ">
                 <th scope="row">{{hero.id}}</th>
                 <td>{{hero.name}}</td>
                 <td>{{hero.age}}</td>
